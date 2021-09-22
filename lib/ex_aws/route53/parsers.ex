@@ -15,7 +15,7 @@ if Code.ensure_loaded?(SweetXml) do
             comment: ~x"./Comment/text()"so,
             private_zone: ~x"./PrivateZone/text()"so |> to_boolean,
           ],
-          resource_record_set_count: ~x"./ResourceRecordSetCount/text()"s,
+          resource_record_set_count: ~x"./ResourceRecordSetCount/text()"i,
           linked_service: [
             ~x"./LinkedService"o,
             service_principal: ~x"./ServicePrincipal/text()"s,
