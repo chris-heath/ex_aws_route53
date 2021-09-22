@@ -23,7 +23,7 @@ if Code.ensure_loaded?(SweetXml) do
           ]
         ],
         delegation_set: [
-          ~x"./DelegationSet",
+          ~x"./DelegationSet"o,
           id: ~x"./Id/text()"s,
           caller_reference: ~x"./CallerReference/text()"s,
           name_servers: ~x"./NameServers/NameServer/text()"ls
