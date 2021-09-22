@@ -10,6 +10,11 @@ defmodule ExAws.Route53 do
 
   @xmlns "https://route53.amazonaws.com/doc/2013-04-01/"
 
+  @spec get_hosted_zone(id :: String.t) :: ExAws.Operation.RestQuery.t
+  def get_hosted_zone(id) do
+    request(:get, :get_hosted_zone, path: "/#{id}")
+  end
+
   @type list_hosted_zones_opts :: [
     {:marker, binary} |
     {:max_items, 1..100}

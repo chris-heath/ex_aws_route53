@@ -3,6 +3,39 @@ if Code.ensure_loaded?(SweetXml) do
     use ExAws.Operation.Query.Parser
     import SweetXml, only: [sigil_x: 2, transform_by: 2]
 
+    def parse({:ok, resp}, :get_hosted_zone) do
+      resp |> parse_xml(~x"//GetHostedZoneResponse",
+        hosted_zone: [
+          ~x"./HostedZone",
+          id: id_node(),
+          name: ~x"./Name/text()"s,
+          caller_reference: ~x"./CallerReference/text()"so,
+          config: [
+            ~x"./Config",
+            comment: ~x"./Comment/text()"so,
+            private_zone: ~x"./PrivateZone/text()"so |> to_boolean,
+          ],
+          resource_record_set_count: ~x"./ResourceRecordSetCount/text()"s,
+          linked_service: [
+            ~x"./LinkedService",
+            service_principal: ~x"./ServicePrincipal/text()"s,
+            description: ~x"./Description/text()"s
+          ]
+        ],
+        delegation_set: [
+          ~x"./DelegationSet",
+          id: ~x"./Id/text()"s,
+          caller_reference: ~x"./CallerReference/text()"s,
+          name_servers: ~x"./NameServers/NameServer/text()"ls
+        ],
+        vpcs: [
+          ~x"./VPCs"l,
+          vpc_id: ~x"./VPC/VPCId/text()"s,
+          vpc_region: ~x"./VPC/VPCRegion/text()"s
+        ]
+      )
+    end
+
     def parse({:ok, resp}, :list_hosted_zones) do
       resp |> parse_xml(~x"//ListHostedZonesResponse",
         is_truncated: ~x"./IsTruncated/text()"s |> to_boolean,
