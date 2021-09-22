@@ -11,13 +11,13 @@ if Code.ensure_loaded?(SweetXml) do
           name: ~x"./Name/text()"s,
           caller_reference: ~x"./CallerReference/text()"so,
           config: [
-            ~x"./Config",
+            ~x"./Config"o,
             comment: ~x"./Comment/text()"so,
             private_zone: ~x"./PrivateZone/text()"so |> to_boolean,
           ],
           resource_record_set_count: ~x"./ResourceRecordSetCount/text()"s,
           linked_service: [
-            ~x"./LinkedService",
+            ~x"./LinkedService"o,
             service_principal: ~x"./ServicePrincipal/text()"s,
             description: ~x"./Description/text()"s
           ]
