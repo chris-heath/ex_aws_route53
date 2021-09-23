@@ -48,7 +48,11 @@ if Code.ensure_loaded?(SweetXml) do
           name:  ~x"./Name/text()"s,
           record_set_count:  ~x"./ResourceRecordSetCount/text()"i,
           caller_reference:  ~x"./CallerReference/text()"s,
-          comment:  ~x"./Config/Comment/text()"s
+          config: [
+            ~x"./Config"o,
+            comment: ~x"./Comment/text()"s,
+            private_zone: ~x"./PrivateZone/text()"s |> to_boolean
+          ]
         ]
       )
     end
