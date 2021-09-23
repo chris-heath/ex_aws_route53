@@ -52,6 +52,11 @@ if Code.ensure_loaded?(SweetXml) do
             ~x"./Config"o,
             comment: ~x"./Comment/text()"s,
             private_zone: ~x"./PrivateZone/text()"s |> to_boolean
+          ],
+          linked_service: [
+            ~x"./LinkedService"o,
+            service_principal: ~x"./ServicePrincipal/text()"s,
+            description: ~x"./Description/text()"s
           ]
         ]
       )
